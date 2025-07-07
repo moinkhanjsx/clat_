@@ -1,0 +1,95 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const scrollLinks = document.querySelectorAll(".scroll-nav a");
+    const scrollNav = document.querySelector(".scroll-nav");
+    let lastScrollTop = 0;
+
+    scrollLinks.forEach((link) => {
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            scrollLinks.forEach((otherLink) => {
+                otherLink.classList.remove("active");
+            });
+
+            this.classList.add("active");
+
+            const targetId = this.getAttribute("href");
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop,
+                    behavior: "smooth",
+                });
+            }
+        });
+    });
+
+    window.addEventListener("scroll", function () {
+        const scrollPosition = window.scrollY;
+        const scrollDirection = scrollPosition > lastScrollTop ? "down" : "up";
+
+        if (scrollDirection === "down") {
+            if (scrollNav && scrollNav.classList) {
+                scrollNav.classList.remove("scrolled-up");
+                scrollNav.classList.remove("top-visible");
+            }
+        } else {
+            if (scrollNav && scrollNav.classList) {
+                scrollNav.classList.add("scrolled-up");
+
+                if (scrollPosition > 100) {
+                    scrollNav.classList.add("top-visible");
+                } else {
+                    scrollNav.classList.remove("top-visible");
+                }
+            }
+        }
+
+        lastScrollTop = scrollPosition;
+
+        let isAnySectionActive = false;
+
+        scrollLinks.forEach((link) => {
+            const targetId = link.getAttribute("data-target");
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                const offsetTop = targetElement.offsetTop;
+                const offsetBottom = offsetTop + targetElement.offsetHeight;
+
+                if (
+                    scrollPosition >= offsetTop &&
+                    scrollPosition < offsetBottom
+                ) {
+                    scrollLinks.forEach((otherLink) => {
+                        otherLink.classList.remove("active");
+                    });
+
+                    link.classList.add("active");
+
+                    if (link.getAttribute("data-target") !== "#tl-12-banner") {
+                        isAnySectionActive = true;
+                    }
+                }
+            }
+        });
+
+        if (scrollPosition > 610) {
+            if (scrollNav && scrollNav.classList) {
+                scrollNav.classList.add("fixed-nav");
+            }
+        } else {
+            if (scrollNav && scrollNav.classList) {
+                scrollNav.classList.remove("fixed-nav");
+            }
+        }
+    });
+
+    const notificationLink = document.querySelector(
+        '.scroll-nav li a[href="#tl-12-banner"]'
+    );
+    if (notificationLink) {
+        notificationLink.classList.add("active");
+    }
+});

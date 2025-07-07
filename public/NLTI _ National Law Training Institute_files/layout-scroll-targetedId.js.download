@@ -1,0 +1,28 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const scrollLinks = document.querySelectorAll('.scroll-nav a');
+
+    window.addEventListener('scroll', function() {
+        const scrollPosition = window.scrollY;
+
+        scrollLinks.forEach(link => {
+            const targetId = link.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                const rect = targetElement.getBoundingClientRect();
+                const offsetTop = rect.top;
+                const offsetBottom = rect.bottom;
+
+                // Check if the top of the target section is within the viewport
+                if (offsetTop <= 1 && offsetBottom > 1) {
+                    // Remove the 'active' class from all links
+                    scrollLinks.forEach(otherLink => {
+                        otherLink.classList.remove('active');
+                    });
+                    // Add the 'active' class to the current link
+                    link.classList.add('active');
+                }
+            }
+        });
+    });
+});

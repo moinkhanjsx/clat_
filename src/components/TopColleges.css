@@ -1,0 +1,71 @@
+.top-colleges {
+  color: white;
+}
+
+.tl-4-section-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.nlti {
+  color: var(--accent-color);
+}
+
+.admission-wrapper {
+  margin-top: 2rem;
+}
+
+.admission-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.admission-icon {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.admission-icon:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.admission-icon img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease;
+}
+
+.admission-icon:hover img {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .tl-4-section-title {
+    font-size: 2rem !important;
+  }
+  
+  .admission-container {
+    gap: 1rem;
+  }
+  
+  .admission-icon {
+    padding: 1rem;
+  }
+  
+  .admission-icon img {
+    width: 60px;
+    height: 60px;
+  }
+} 

@@ -1,0 +1,148 @@
+let lastScrollTop = 0;
+const tlHeader = document.querySelector(".tl-header");
+
+window.addEventListener(
+    "scroll",
+    function () {
+        let st = window.pageYOffset || document.documentElement.scrollTop;
+        if (st > lastScrollTop) {
+            tlHeader.classList.add("hide");
+            tlHeader.style.backgroundColor = "transparent";
+        } else {
+            tlHeader.classList.remove("hide");
+            tlHeader.style.backgroundColor = "black";
+            tlHeader.style.zIndex = "10";
+            tlHeader.style.padding = "10px";
+        }
+
+        // Check if scroll position is at the top
+        if (st === 0) {
+            tlHeader.style.backgroundColor = "transparent";
+        }
+
+        lastScrollTop = st <= 0 ? 0 : st;
+    },
+    false
+);
+
+// notification -  video - section
+
+var video = document.getElementById("videoPlayer");
+var playButton = document.getElementById("playButton");
+var isPlaying = false;
+
+function playPause() {
+    if (!isPlaying) {
+        video.muted = false;
+        video.currentTime = 0;
+        video.play();
+        isPlaying = true;
+        playButton.style.display = "none"; // Hide the play button
+        video.controls = true; // Show video controls
+    } else {
+        video.pause();
+        isPlaying = false;
+    }
+}
+
+// form
+document.addEventListener("DOMContentLoaded", function () {
+    if (
+        window.location.pathname == "/" ||
+        window.location.pathname == "/clat_new/"
+    ) {
+        setTimeout(function () {
+            openPopup();
+        }, 5000);
+    }
+});
+
+function openPopup() {
+    var popup = document.getElementById("popup");
+    if (popup) popup.style.display = "flex";
+}
+
+function closePopup() {
+    var popup = document.getElementById("popup");
+    popup.style.display = "none";
+}
+
+function submitForm() {
+    closePopup();
+}
+
+function handleResize() {
+    var buyCourseButton = document.querySelector(".buy-course-wrap");
+    if (window.innerWidth < 991) {
+        buyCourseButton.style.display = "block";
+    }
+}
+
+window.addEventListener("resize", handleResize);
+handleResize();
+
+window.addEventListener("resize", function () {
+    var buyCourseButton = document.querySelector(".buy-course");
+    if (window.innerWidth < 991) {
+        buyCourseButton.style.display = "none";
+    } else {
+        buyCourseButton.style.display = "block";
+    }
+});
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     var imageContainer = document.querySelector(".tl-1-about-img");
+//     if (imageContainer) {
+//         var images = imageContainer.querySelectorAll(".tl-1-about-main-img");
+//         var totalImages = images.length;
+//         var currentIndex = 0;
+//         var intervalId;
+
+//         function toggleImages() {
+//             images[currentIndex].style.display = "none";
+//             currentIndex = (currentIndex + 1) % totalImages;
+//             images[currentIndex].style.display = "block";
+//         }
+
+//         intervalId = setInterval(toggleImages, 3000);
+
+//         imageContainer.addEventListener("mouseover", function () {
+//             clearInterval(intervalId);
+//         });
+
+//         imageContainer.addEventListener("mouseout", function () {
+//             intervalId = setInterval(toggleImages, 3000);
+//         });
+//     }
+// });
+
+document.addEventListener("DOMContentLoaded", function () {
+    var imageContainer = document.querySelector(".tl-1-about-img");
+    if (imageContainer) {
+        var images = imageContainer.querySelectorAll(".tl-1-about-main-img");
+        var totalImages = images.length;
+        var currentIndex = 0;
+        var intervalId;
+
+        // Hide all images except the first one
+        for (var i = 1; i < totalImages; i++) {
+            images[i].style.display = "none";
+        }
+
+        function toggleImages() {
+            images[currentIndex].style.display = "none";
+            currentIndex = (currentIndex + 1) % totalImages;
+            images[currentIndex].style.display = "block";
+        }
+
+        intervalId = setInterval(toggleImages, 3000);
+
+        imageContainer.addEventListener("mouseover", function () {
+            clearInterval(intervalId);
+        });
+
+        imageContainer.addEventListener("mouseout", function () {
+            intervalId = setInterval(toggleImages, 3000);
+        });
+    }
+});

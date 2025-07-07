@@ -1,0 +1,113 @@
+document.addEventListener("DOMContentLoaded", function () {
+    function addVisibleClassWithDelay(elements, delay) {
+        elements.forEach((element, index) => {
+            setTimeout(() => {
+                element.classList.add("visible");
+            }, index * delay);
+        });
+    }
+
+    // Function to handle scroll event and reapply transition effect
+    function handleScrollAndRender() {
+        const startButtons = document.querySelectorAll(".start-button");
+        const headings = document.querySelectorAll(".main-wrapper h2");
+
+        if (isTopOfPage()) {
+            addVisibleClassWithDelay(startButtons, 200);
+            addVisibleClassWithDelay(headings, 200);
+        } else {
+            // If not at the top, remove 'visible' class to hide the elements
+            startButtons.forEach((button) =>
+                button.classList.remove("visible")
+            );
+            headings.forEach((heading) => heading.classList.remove("visible"));
+        }
+
+        // Check if the result section is the active target
+        const resultSection = document.getElementById("tl-12-result");
+        const resultLink = document.querySelector('a[href="#tl-12-result"]');
+
+        if (
+            resultSection &&
+            resultLink &&
+            resultLink.classList.contains("active")
+        ) {
+            const dataElement = resultSection.querySelector(".result-trans");
+            if (dataElement) {
+                dataElement.classList.add("slide-right");
+            }
+        } else {
+            const dataElements = document.querySelectorAll(".result-trans");
+            dataElements.forEach((element) =>
+                element.classList.remove("slide-right")
+            );
+        }
+
+        // Check if the courses section is the active target
+        const coursesSection = document.getElementById("tl-12-courses");
+        const coursesLink = document.querySelector('a[href="#tl-12-courses"]');
+
+        if (
+            coursesSection &&
+            coursesLink &&
+            coursesLink.classList.contains("active")
+        ) {
+            const dataElement = coursesSection.querySelector(".courses-trans");
+            if (dataElement) {
+                dataElement.classList.add("slide-rights");
+            }
+        } else {
+            const dataElements = document.querySelectorAll(".courses-trans");
+            dataElements.forEach((element) =>
+                element.classList.remove("slide-rights")
+            );
+        }
+
+        // Check if the test section is the active target
+        const testSection = document.getElementById("tl-12-test");
+        const testLink = document.querySelector('a[href="#tl-12-test"]');
+
+        if (testSection && testLink && testLink.classList.contains("active")) {
+            const dataElement = testSection.querySelector(".testimonials-trans");
+            if (dataElement) {
+                dataElement.classList.add("slide-right-data");
+            }
+        } else {
+            const dataElements = document.querySelectorAll(".testimonials-trans");
+            dataElements.forEach((element) =>
+                element.classList.remove("slide-right-data")
+            );
+        }
+
+        // Check if the banner section is the active target
+        const bannerSection = document.getElementById("tl-12-banner");
+        const bannerLink = document.querySelector('a[href="#tl-12-banner"]');
+
+        if (
+            bannerSection &&
+            bannerLink &&
+            bannerLink.classList.contains("active")
+        ) {
+            const dataElement = bannerSection.querySelector(".notification-trans");
+            if (dataElement) {
+                dataElement.classList.add("slide-right-banner");
+            }
+        } else {
+            const dataElements = document.querySelectorAll(".notification-trans");
+            dataElements.forEach((element) =>
+                element.classList.remove("slide-right-banner")
+            );
+        }
+    }
+
+    // Function to check if the top of the window is reached
+    function isTopOfPage() {
+        return window.scrollY <= 0;
+    }
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScrollAndRender);
+
+    // Trigger animation on initial render
+    handleScrollAndRender();
+});

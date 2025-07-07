@@ -1,0 +1,36 @@
+.blog-card-hover {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.blog-card-hover:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.blog-img-wrap img {
+  object-fit: cover;
+  height: 220px;
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+
+.blog-card-hover:hover .blog-img-wrap img {
+  transform: scale(1.05);
+}
+
+.badge {
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 991px) {
+  .blog-img-wrap img { 
+    height: 180px; 
+  }
+}
+
+@media (max-width: 767px) {
+  .blog-img-wrap img { 
+    height: 140px; 
+  }
+} 
